@@ -51,6 +51,10 @@ elif page == 'rooms':
             st.success('会議室登録完了')
         st.json(res.json())
 
+
+
+
+
 elif page == 'bookings':
     st.title('会議室予約画面')
     # ユーザー一覧取得

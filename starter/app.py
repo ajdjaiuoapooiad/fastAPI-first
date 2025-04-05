@@ -66,7 +66,7 @@ elif page == 'bookings':
         booking_id: int = random.randint(0, 10)
         user_id: int = random.randint(0, 10)
         room_id: int = random.randint(0, 10)
-        booked_num: int = random.randint(0, 10)
+        booked_num: int = st.number_input('予約人数', step=1)
         start_datetime: datetime.datetime = st.date_input('開始日時', datetime.datetime.now())
         end_datetime: datetime.datetime = st.date_input('終了日時', datetime.datetime.now())
         

@@ -1,23 +1,24 @@
 from fastapi import FastAPI
-from pydantic import BaseModel, fields
-from datetime import datetime
+from pydantic import BaseModel, Field
+import datetime
+import requests
 
 class Booking(BaseModel):
-    booking_id = int
-    user_id =  int
-    room_id = int 
-    booked_num = int
-    start_datetime = datetime.datetime
-    end_datetime = datetime.datetime
+    booking_id: int
+    user_id: int
+    room_id: int
+    booked_num: int
+    start_datetime: datetime.datetime
+    end_datetime: datetime.datetime
 
 class User(BaseModel):
-    user_id = int
-    username = fields("username", max_length=50)
+    user_id: int
+    username: str = Field(..., max_length=50)  # ... は必須フィールドを示す
 
 class Room(BaseModel):
-    room_id = int
-    room_name = fields("room_name", max_length=50)
-    capacity = int
+    room_id: int
+    room_name: str = Field(..., max_length=50)  # ... は必須フィールドを示す
+    capacity: int
 
 
 app = FastAPI()
@@ -27,13 +28,13 @@ async def index():
     return {"message": "Hello, World!"}
 
 @app.post("/users")
-async def index(users: User):
-    return {"users":users}
+async def create_user(user: User):
+    return {"user": user}
 
 @app.post("/rooms")
-async def index(room: Room):
-    return {"rooms": room}
+async def create_room(room: Room):
+    return {"room": room}
 
 @app.post("/bookings")
-async def index(booking: Booking):
-    return {"bookings": booking}
+async def create_booking(booking: Booking):
+    return {"booking": booking}

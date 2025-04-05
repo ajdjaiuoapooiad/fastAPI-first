@@ -99,7 +99,17 @@ elif page == 'bookings':
             'capacity': room['capacity'],
         }
 
-   
+        
+    # IDを各値に変更
+    to_username = lambda x: users_id[x]
+    to_room_name = lambda x: rooms_id[x]['room_name']
+    to_datetime = lambda x: datetime.datetime.fromisoformat(x).strftime('%Y/%m/%d %H:%M')
+
+    # 特定の列に適用
+    df_bookings['user_id'] = df_bookings['user_id'].map(to_username)
+    df_bookings['room_id'] = df_bookings['room_id'].map(to_room_name)
+    df_bookings['start_datetime'] = df_bookings['start_datetime'].map(to_datetime)
+    df_bookings['end_datetime'] = df_bookings['end_datetime'].map(to_datetime)
 
     df_bookings = df_bookings.rename(columns={
         'user_id': '予約者名',
@@ -111,6 +121,8 @@ elif page == 'bookings':
     })
     st.write('### 予約一覧')
     st.table(df_bookings)
+
+
 
 
     with st.form(key='booking'):
